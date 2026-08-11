@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OKX Trading MCP — 让 AI 帮你交易 | 现货/合约智能下单工具</title>
+<style>
+  :root {
+    --bg: #0b0e14;
+    --card: #131722;
+    --border: #232a3b;
+    --text: #e6e9f0;
+    --muted: #8b93a7;
+    --accent: #3d8bff;
+    --green: #16c784;
+    --red: #ea3943;
+    --gold: #f0b90b;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+  }
+  .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+
+  /* ── Hero ── */
+  .hero {
+    padding: 80px 0 60px;
+    text-align: center;
+    background: radial-gradient(ellipse at 50% 0%, #1a2340 0%, var(--bg) 70%);
+  }
+  .badge {
+    display: inline-block;
+    background: rgba(240, 185, 11, 0.12);
+    border: 1px solid rgba(240, 185, 11, 0.4);
+    color: var(--gold);
+    font-size: 13px;
+    padding: 4px 14px;
+    border-radius: 999px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: 46px;
+    font-weight: 800;
+    margin-bottom: 14px;
+    background: linear-gradient(90deg, #fff, #9db8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .hero p.sub {
+    font-size: 19px;
+    color: var(--muted);
+    max-width: 640px;
+    margin: 0 auto 30px;
+  }
+  .hero .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    padding: 13px 34px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-2px); }
+  .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 20px rgba(61,139,255,.35); }
+  .btn-ghost { border: 1px solid var(--border); color: var(--text); }
+  .compat { margin-top: 26px; font-size: 13px; color: var(--muted); }
+
+  /* ── Features ── */
+  .section { padding: 60px 0; }
+  .section h2 { text-align: center; font-size: 30px; margin-bottom: 40px; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px;
+  }
+  .card .icon { font-size: 26px; margin-bottom: 10px; }
+  .card h3 { font-size: 17px; margin-bottom: 6px; }
+  .card p { color: var(--muted); font-size: 14px; }
+  .tag {
+    display: inline-block; font-size: 11px; padding: 2px 10px;
+    border-radius: 999px; margin-top: 10px; font-weight: 600;
+  }
+  .tag-green { background: rgba(22,199,132,.12); color: var(--green); }
+  .tag-blue { background: rgba(61,139,255,.12); color: var(--accent); }
+
+  /* ── Chat mock ── */
+  .chat-wrap { max-width: 620px; margin: 0 auto; }
+  .chat {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 22px; font-size: 14.5px;
+  }
+  .msg { display: flex; gap: 12px; margin-bottom: 16px; }
+  .avatar {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex-shrink: 0;
+  }
+  .msg.user .avatar { background: #1e3a8a; }
+  .msg.bot .avatar { background: #233; }
+  .bubble {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: 12px; padding: 10px 14px; max-width: 85%;
+  }
+  .msg.bot .bubble { background: #0f1720; }
+  .bubble .tool { color: var(--accent); font-size: 12px; font-family: monospace; }
+  .bubble .ok { color: var(--green); }
+  .bubble .num { color: var(--gold); font-weight: 600; }
+
+  /* ── Pricing ── */
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px; max-width: 720px; margin: 0 auto; }
+  .price-card {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 16px; padding: 30px 26px; text-align: center;
+    position: relative;
+  }
+  .price-card.hot { border-color: var(--gold); box-shadow: 0 0 40px rgba(240,185,11,.12); }
+  .price-card .plan { font-size: 14px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+  .price-card .amount { font-size: 44px; font-weight: 800; margin: 12px 0; }
+  .price-card .amount small { font-size: 15px; color: var(--muted); font-weight: 400; }
+  .price-card ul { list-style: none; text-align: left; margin: 20px 0; }
+  .price-card ul li { padding: 7px 0; font-size: 14.5px; color: #c4c9d6; }
+  .price-card ul li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+  .ribbon {
+    position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
+    background: var(--gold); color: #000; font-size: 12px; font-weight: 700;
+    padding: 3px 14px; border-radius: 999px;
+  }
+
+  /* ── FAQ ── */
+  .faq { max-width: 720px; margin: 0 auto; }
+  .faq details {
+    background: var(--card); border: 1px solid var(--border);
+    border-radius: 12px; padding: 16px 20px; margin-bottom: 12px;
+  }
+  .faq summary { font-weight: 600; cursor: pointer; font-size: 15px; }
+  .faq p { color: var(--muted); font-size: 14px; margin-top: 10px; }
+
+  footer { text-align: center; padding: 50px 0 40px; color: var(--muted); font-size: 13px; }
+  footer .disclaimer {
+    max-width: 720px; margin: 0 auto 20px; font-size: 12px;
+    border: 1px dashed var(--border); border-radius: 10px; padding: 14px;
+  }
+</style>
+</head>
+<body>
+
+<!-- ── Hero ── -->
+<div class="hero">
+  <div class="container">
+    <span class="badge">⚡ 已适配 双向持仓 / 逐仓 / 条件单自动清理</span>
+    <h1>让 AI 帮你交易 OKX 合约</h1>
+    <p class="sub">一句话开仓、平仓、挂止损止盈。行情查询、仓位管理、风控全部自动化——任何支持 MCP 的 AI 客户端都能用。</p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="#pricing">立即购买 · $49 起</a>
+      <a class="btn btn-ghost" href="#features">查看功能</a>
+    </div>
+    <div class="compat">兼容：Claude Desktop · Cursor · Cherry Studio · Hermes · Windsurf 等</div>
+  </div>
+</div>
+
+<!-- ── Features ── -->
+<div class="section" id="features">
+  <div class="container">
+    <h2>10 个工具，覆盖完整交易闭环</h2>
+    <div class="grid">
+      <div class="card"><div class="icon">📊</div><h3>账户总览</h3><p>余额、总权益、各币种持仓一键查询</p><span class="tag tag-blue">查询</span></div>
+      <div class="card"><div class="icon">📈</div><h3>实时行情</h3><p>最新价、买卖盘、24h 涨跌幅、成交量</p><span class="tag tag-blue">查询</span></div>
+      <div class="card"><div class="icon">⚡</div><h3>一键开仓</h3><p>市价开多/开空，自动设置杠杆（1–125x）</p><span class="tag tag-green">交易</span></div>
+      <div class="card"><div class="icon">🎯</div><h3>智能平仓</h3><p>reduceOnly 保护，绝不误开反向仓</p><span class="tag tag-green">交易</span></div>
+      <div class="card"><div class="icon">🛡</div><h3>止损止盈</h3><p>按开仓价百分比一键挂 SL/TP，旧单自动清理</p><span class="tag tag-green">风控</span></div>
+      <div class="card"><div class="icon">📋</div><h3>挂单管理</h3><p>查看/撤销全部条件单，支持一键清空</p><span class="tag tag-blue">管理</span></div>
+      <div class="card"><div class="icon">🔒</div><h3>本地密钥</h3><p>API Key 只存本地 .env，绝不外传</p><span class="tag tag-blue">安全</span></div>
+      <div class="card"><div class="icon">🔧</div><h3>开箱即用</h3><p>安装向导引导配置，2 分钟跑通</p><span class="tag tag-blue">体验</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Chat demo ── -->
+<div class="section" style="padding-top:0">
+  <div class="container">
+    <h2>像聊天一样交易</h2>
+    <div class="chat-wrap">
+      <div class="chat">
+        <div class="msg user">
+          <div class="avatar">👤</div>
+          <div class="bubble">用 10 倍杠杆开 5 张 PEPE 多单</div>
+        </div>
+        <div class="msg bot">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            <div class="tool">okx_open_position(symbol="PEPE/USDT:USDT", side="buy", amount=5, leverage=10)</div>
+            ✅ 已开仓 <span class="num">5 张</span> @ 0.00000942<br>
+            杠杆 10x · 逐仓 · 多头
+          </div>
+        </div>
+        <div class="msg user">
+          <div class="avatar">👤</div>
+          <div class="bubble">挂上止损 3%、止盈 6%</div>
+        </div>
+        <div class="msg bot">
+          <div class="avatar">🤖</div>
+          <div class="bubble">
+            <div class="tool">okx_set_sl_tp(sl_percent=3, tp_percent=6)</div>
+            ✅ SL @ <span class="num">0.00000914</span> 🛑<br>
+            ✅ TP @ <span class="num">0.00000999</span> 🎯<br>
+            条件单已提交至交易所服务器
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── Pricing ── -->
+<div class="section" id="pricing" style="padding-top:0">
+  <div class="container">
+    <h2>选择你的版本</h2>
+    <div class="pricing-grid">
+      <div class="price-card">
+        <div class="plan">Standard</div>
+        <div class="amount">$49 <small>/ ¥299</small></div>
+        <ul>
+          <li>全部 10 个交易工具</li>
+          <li>Windows / Mac / Linux 安装向导</li>
+          <li>中英文使用文档</li>
+          <li>1 年版本更新</li>
+          <li>邮件支持</li>
+        </ul>
+        <a class="btn btn-ghost" href="#" onclick="alert('购买链接即将上线！请联系微信 / Telegram 获取。')">购买 Standard</a>
+      </div>
+      <div class="price-card hot">
+        <div class="ribbon">🔥 推荐</div>
+        <div class="plan">Pro</div>
+        <div class="amount">$99 <small>/ ¥599</small></div>
+        <ul>
+          <li>Standard 全部功能</li>
+          <li>📡 行情扫描器（全市场 RSI 信号）</li>
+          <li>📈 策略回测脚本（含手续费模型）</li>
+          <li>🧾 交易账本（自动记录每笔交易）</li>
+          <li>1 年更新 + 微信/Telegram 支持</li>
+        </ul>
+        <a class="btn btn-primary" href="#" onclick="alert('购买链接即将上线！请联系微信 / Telegram 获取。')">购买 Pro</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── FAQ ── -->
+<div class="section" style="padding-top:0">
+  <div class="container">
+    <h2>常见问题</h2>
+    <div class="faq">
+      <details open>
+        <summary>我是新手，能直接用吗？</summary>
+        <p>可以。双击 install.bat，按向导填 API Key，然后复制一段配置到你的 MCP 客户端即可。全程 2 分钟，不需要写任何代码。</p>
+      </details>
+      <details>
+        <summary>我的 API Key 安全吗？</summary>
+        <p>凭证只保存在你自己电脑的 .env 文件里，交易请求直接发往 OKX 官方 API，不经过任何第三方服务器。建议创建 API Key 时开启 IP 白名单，并只勾选「交易」权限（切勿勾选提现权限）。</p>
+      </details>
+      <details>
+        <summary>支持哪些客户端？</summary>
+        <p>任何支持 MCP 协议的客户端：Claude Desktop、Cursor、Cherry Studio、Hermes、Windsurf、Claude Code 等。配置方式完全一样。</p>
+      </details>
+      <details>
+        <summary>和 OKX 的 API 直连有什么区别？</summary>
+        <p>API 直连需要你写代码、处理签名、踩双向持仓/张数取整/条件单等坑。这个产品把这些全部封装好，让 AI 直接调用，你只需要用自然语言描述交易意图。</p>
+      </details>
+      <details>
+        <summary>能保证盈利吗？</summary>
+        <p>不能，任何声称保证盈利的都是骗局。合约交易风险极高，本工具只负责「执行你的交易指令」，策略和风控由你自己决定。请在风险承受范围内交易。</p>
+      </details>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="disclaimer">
+      ⚠️ <strong>风险提示</strong>：加密货币合约交易可能导致全部本金损失。本产品仅提供交易自动化工具，不构成投资建议。使用者自行承担全部交易风险。<br>
+      <em>Risk warning: crypto futures trading can result in total loss of capital. This is a trading automation tool, NOT investment advice.</em>
+    </div>
+    <div>© 2026 OKX Trading MCP · 非 OKX 官方产品 · Not an official OKX product</div>
+  </div>
+</footer>
+
+</body>
+</html>
