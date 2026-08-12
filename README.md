@@ -8,6 +8,10 @@
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue) ![License](https://img.shields.io/badge/license-MIT-green) ![Protocol](https://img.shields.io/badge/MCP-✓-green)
 
+<p align="center">
+  <img src="demo.svg" alt="OKX Trading MCP demo — 对话式交易" width="100%">
+</p>
+
 </div>
 
 ---
@@ -37,9 +41,9 @@ An MCP (Model Context Protocol) server that connects any AI client — Claude De
 **🚀 快速开始：**
 
 ```bash
- git clone https://github.com/wl18295600077-a11y/okx-trading-mcp.git
- cd okx-trading-mcp
- python setup_env.py    # 配置 OKX API Key（只读本地 .env，安全）
+git clone https://github.com/wl18295600077-a11y/okx-trading-mcp.git
+cd okx-trading-mcp
+python setup_env.py    # 配置 OKX API Key（只读本地 .env，安全）
 ```
 
 然后按 `examples/mcp-config.json` 把服务器接入任意 MCP 客户端即可（Claude Desktop / Cursor / Cherry Studio / Hermes / Windsurf）。

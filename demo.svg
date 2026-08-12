@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="840" viewBox="0 0 1200 840" font-family="'Segoe UI','Microsoft YaHei',sans-serif">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141b2e"/>
+      <stop offset="1" stop-color="#0b0e14"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 背景 -->
+  <rect width="1200" height="840" fill="url(#bg)"/>
+
+  <!-- 窗口标题栏 -->
+  <rect x="0" y="0" width="1200" height="54" fill="#131722"/>
+  <line x1="0" y1="54" x2="1200" y2="54" stroke="#232a3b" stroke-width="1"/>
+  <circle cx="30" cy="27" r="7" fill="#ea3943"/>
+  <circle cx="54" cy="27" r="7" fill="#f0b90b"/>
+  <circle cx="78" cy="27" r="7" fill="#16c784"/>
+  <text x="110" y="34" font-size="15" fill="#8b93a7">OKX Trading MCP — Claude Desktop</text>
+  <text x="1120" y="34" font-size="13" fill="#16c784">● 已连接</text>
+
+  <!-- 第一轮对话 -->
+  <!-- 用户 -->
+  <rect x="380" y="96" width="600" height="64" rx="12" fill="#1e3a8a"/>
+  <text x="410" y="126" font-size="17" fill="#ffffff">👤 用 10 倍杠杆开 5 张 PEPE 多单</text>
+  <text x="410" y="148" font-size="12" fill="#9db8ff">你</text>
+
+  <!-- AI 回复 -->
+  <rect x="90" y="196" width="920" height="140" rx="12" fill="#0f1720" stroke="#232a3b" stroke-width="1"/>
+  <text x="120" y="222" font-size="17" fill="#e6e9f0">🤖 好的，正在为您下单…</text>
+  <text x="140" y="252" font-size="13" fill="#3d8bff" font-family="'Consolas','Courier New',monospace">okx_open_position(symbol="PEPE/USDT:USDT", side="buy", amount=5, leverage=10)</text>
+  <text x="140" y="284" font-size="15" fill="#16c784">✓ 已开仓 5 张 @ 0.00000942</text>
+  <text x="140" y="312" font-size="14" fill="#8b93a7">杠杆 10x · 逐仓 · 多头</text>
+
+  <!-- 第二轮对话 -->
+  <!-- 用户 -->
+  <rect x="380" y="372" width="600" height="64" rx="12" fill="#1e3a8a"/>
+  <text x="410" y="402" font-size="17" fill="#ffffff">👤 挂上止损 3%、止盈 6%</text>
+  <text x="410" y="424" font-size="12" fill="#9db8ff">你</text>
+
+  <!-- AI 回复 -->
+  <rect x="90" y="472" width="920" height="170" rx="12" fill="#0f1720" stroke="#232a3b" stroke-width="1"/>
+  <text x="120" y="498" font-size="17" fill="#e6e9f0">🤖 已为您设置风控：</text>
+  <text x="140" y="530" font-size="13" fill="#3d8bff" font-family="'Consolas','Courier New',monospace">okx_set_sl_tp(sl_percent=3, tp_percent=6)</text>
+  <text x="140" y="564" font-size="15" fill="#16c784">✓ SL @ 0.00000914　🛑 止损</text>
+  <text x="140" y="594" font-size="15" fill="#f0b90b">✓ TP @ 0.00000999　🎯 止盈</text>
+  <text x="140" y="624" font-size="13" fill="#8b93a7">条件单已提交至交易所服务器</text>
+
+  <!-- 底部状态栏 -->
+  <rect x="0" y="786" width="1200" height="54" fill="#131722"/>
+  <line x1="0" y1="786" x2="1200" y2="786" stroke="#232a3b" stroke-width="1"/>
+  <text x="30" y="818" font-size="13" fill="#8b93a7">状态：✅ 已连接 OKX · 双向持仓 · 逐仓 10x</text>
+  <text x="900" y="818" font-size="13" fill="#8b93a7">工具：10 个 MCP 工具就绪</text>
+</svg>
